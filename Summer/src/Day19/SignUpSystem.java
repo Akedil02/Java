@@ -23,18 +23,17 @@ public class SignUpSystem {
             System.out.println("Enter username: ");
             username = sc.nextLine();
             if (!UserRegistory.isUsernameCharsLegalMethod(username)){
-                System.out.println("Username illegal.");
+                System.out.println("Username illegal. Try again.");
                 continue;
             }
             if (UserRegistory.isUsernameTakenMethod(username)) {
-                System.out.println("Username taken.");
-                continue;
+                System.out.println("Username taken. Try again.");
+            }else {
+                System.out.println("Username created.");
+                UserRegistory.usedUsernames.add(username);
+                break;
             }
-            System.out.println("Username created.");
-            UserRegistory.usedUsernames.add(username);
-            break;
         }
-
         while (true){
             System.out.println("Enter password(longer than 5 characters): ");
             password = sc.next();
@@ -45,47 +44,42 @@ public class SignUpSystem {
             System.out.println("Verify password: ");
             String password2 = sc.next();
             if (!password2.equals(password)){
-                System.out.println("Password not the same");
-                continue;
+                System.out.println("Password not the same, try again.");
+            }else {
+                System.out.println("Password set successfully.");
+                break;
             }
-
-            System.out.println("Password set successfully.");
-            break;
         }
-
         while (true){
             System.out.println("ID consists of 18 digits, first can not be 0, last can be x or X.");
             System.out.println("Enter personal ID: ");
             ID = sc.next();
             if(!UserRegistory.isIDLegalMethod(ID)){
-                System.out.println("ID is illegal.");
-                continue;
+                System.out.println("ID is illegal. Try again.");
+            }else {
+                System.out.println("ID saved.");
+                break;
             }
-            System.out.println("ID saved.");
-            break;
         }
-
         while (true){
             System.out.println("Phone number consists of 11 digits, 1 can not be '0'.");
             System.out.println("Enter phone number: ");
             pn = sc.next();
             if (!UserRegistory.isPhoneNumberLegalMethod(pn)){
                 System.out.println("Invalid phone number.");
-                continue;
+            }else {
+                System.out.println("Phone number saved.");
+                break;
             }
-            System.out.println("Phone number saved.");
-            break;
         }
 
         User user = new User(username,password,ID,pn);
         UserData.add(user);
-        System.out.println("User account created successfully.");
+        System.out.println("User account created successfully. Jumping to Login....");
         LoginSystem.start();
     }
 
     public static void main(String[] args) {
         start();
     }
-
-
 }

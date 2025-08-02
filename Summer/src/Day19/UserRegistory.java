@@ -16,6 +16,10 @@ public class UserRegistory {
           return usedUsernames.contains(username);
     }
     public static boolean isUsernameCharsLegalMethod(String username){
+        int len = username.length();
+        if(len < 3 || len > 15){
+            return false;
+        }
         int letterCount = 0;
         int digitCount = 0;
         for (int i = 0; i < username.length(); i++) {
@@ -27,8 +31,7 @@ public class UserRegistory {
                 return false;
             }
         }
-        int charSum = letterCount + digitCount;
-        return letterCount != 0 && digitCount != 0 && charSum >= 3 && charSum <= 15;
+        return letterCount != 0 && digitCount != 0;
     }
 
     //Password
@@ -42,16 +45,14 @@ public class UserRegistory {
 
         if (ID.charAt(0) == '0') return false; // 首位不能为0
 
-        boolean isFirst17CharsDigit = true;
-        for (int i = 0; i < 17; i++) { // 索引应该从 0 开始
+
+        for (int i = 0; i < 17; i++) { // 1-17 为数字
             if (!Character.isDigit(ID.charAt(i))) {
-                isFirst17CharsDigit = false;
-                break;
+                return false;
             }
         }
-        boolean isLastCharLegal = ID.charAt(17) >= '0' && ID.charAt(17) <= '9' || ID.charAt(17) == 'X' || ID.charAt(17) == 'x' ;
-
-        return  isFirst17CharsDigit && isLastCharLegal;
+        //18 为数或x X
+        return ID.charAt(17) >= '0' && ID.charAt(17) <= '9' || ID.charAt(17) == 'X' || ID.charAt(17) == 'x' ;
     }
 
     //Phone number
